@@ -1,3 +1,5 @@
+package src;
+
 import model.Trip;
 import search.SearchTrip;
 
