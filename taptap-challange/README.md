@@ -33,7 +33,9 @@ Bước 4:Tạo danh sách hành trình (trip):
 Run ImportDataApplication.java
 ```
 
-- Lưu ý: Có thể thay đổi tổng số dữ liệu cần import bằng cách cấu hình trong file hoặc qua tham số đầu vào, tùy vào cách ứng dụng được thiết kế.
+- Lưu ý:
+  - Có thể thay đổi tổng số dữ liệu cần import bằng cách cấu hình trong file hoặc qua tham số đầu vào, tùy vào cách ứng dụng được thiết kế.
+  - Project sử dụng Java 8
 2. Tìm kiếm hành trình
 ``` 
 Run Main.java
