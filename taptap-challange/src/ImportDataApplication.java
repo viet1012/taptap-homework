@@ -8,7 +8,7 @@ public class ImportDataApplication {
         /*
         * Simulate BUS data file
         * */
-        int total=100000;
+        int total= 100000;
 //        int total= 3;
 
         Function<Integer, Object> simulateData=new SimulateData();

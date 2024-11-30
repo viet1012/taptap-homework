@@ -40,6 +40,7 @@ public class SearchTrip implements Function<String, List<Trip>> {
         return trips;
     }
 
+    // Tìm danh sách các dòng dữ liệu tương ứng với cardId.
     private Map<String, List<Integer>> findRowIndexByCardId(String cardId) {
         try {
             return SearchUtil.searchCard(cardId);
@@ -49,6 +50,7 @@ public class SearchTrip implements Function<String, List<Trip>> {
         return Collections.EMPTY_MAP;
     }
 
+    // Lấy danh sách hướng đi ("IN"/"OUT") dựa trên danh sách các dòng dữ liệu đã tìm thấy.
     private List<String> findDirectionByMatchedIndex(Map<String, List<Integer>> matchedIndex) {
         try {
             return SearchUtil.searchDirection(matchedIndex);
@@ -58,6 +60,7 @@ public class SearchTrip implements Function<String, List<Trip>> {
         return Collections.EMPTY_LIST;
     }
 
+    // Lấy danh sách thời gian (timestamp) tương ứng với các dòng dữ liệu đã tìm thấy.
     private List<String> findTimestampByMatchedIndex(Map<String, List<Integer>> matchedIndex) {
         try {
             return SearchUtil.searchTimestamp(matchedIndex);

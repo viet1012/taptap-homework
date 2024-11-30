@@ -14,8 +14,8 @@ import java.util.function.Function;
 // Class ImportData implement interface Function<String, String>
 public class ImportData implements Function<String, String> {
     private static Map<Integer, List<String>> columnData; // Lưu dữ liệu được xử lý theo cột
-//    private static int fileCutoff = 200000;
-    private static int fileCutoff = 2;
+    private static int fileCutoff = 200000;
+//    private static int fileCutoff = 2;
 
     // Phương thức chính xử lý logic khi gọi Function<String, String>
     @Override
