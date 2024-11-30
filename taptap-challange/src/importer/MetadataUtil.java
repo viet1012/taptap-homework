@@ -115,6 +115,7 @@ public class MetadataUtil {
     public int getCurrentPage(ColumnMapping column) {
         return columnPage.get(column.getPrefix());
     }
+
     public int getCurrentPage(int colId) {
         return columnPage.getOrDefault(colId, 0); // Nếu không có pageId cho colId thì trả về 0
     }
