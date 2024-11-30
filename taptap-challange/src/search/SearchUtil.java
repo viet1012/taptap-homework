@@ -2,9 +2,11 @@ package search;
 
 import importer.MetadataUtil;
 import mapping.ColumnMapping;
+import org.apache.commons.io.FileUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 public class SearchUtil {
@@ -43,4 +45,68 @@ public class SearchUtil {
         }
         return lines;
     }
+    public static List<String> searchDirection(Map<String, List<Integer>> indexes) {
+        MAX_THREAD = 1;
+
+        List<String> matchedDirections = Collections.synchronizedList(new ArrayList<>());
+        try {
+            search(ColumnMapping.DIRECTION, new SearchDirection(), indexes, matchedDirections);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return matchedDirections;
+    }
+
+    public static Map<String, List<Integer>> searchCard(String cardId) {
+        MAX_THREAD = 5;
+
+        Map<String, List<Integer>> lines = Collections.synchronizedMap(new HashMap<>());
+        try {
+            search(ColumnMapping.CARD_ID, new SearchCardId(), cardId, lines);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+    public static List<String> searchTimestamp(Map<String, List<Integer>> indexes) {
+        MAX_THREAD = 1;
+
+        List<String> matchedDirections = Collections.synchronizedList(new ArrayList<>());
+        try {
+            search(ColumnMapping.TIMESTAMP, new SearchTimestamp(), indexes, matchedDirections);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return matchedDirections;
+    }
+
+    private static class SearchFile<P, K, R> implements Runnable {
+        private String fileName;
+        private int pageId;
+        private R lines;
+        private CountDownLatch countDownLatch;
+        private SearchFunction searchFunction;
+        private K key;
+
+        public SearchFile(String fileName, int pageId, R lines, CountDownLatch countDownLatch, SearchFunction searchFunction, K key) {
+            this.fileName = fileName;
+            this.pageId = pageId;
+            this.lines = lines;
+            this.countDownLatch = countDownLatch;
+            this.searchFunction = searchFunction;
+            this.key = key;
+        }
+
+        @Override
+        public void run() {
+            try {
+                List<String> data = FileUtils.readLines(new File(fileName));
+                searchFunction.search(pageId, data, key, lines);
+                countDownLatch.countDown();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+

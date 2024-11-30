@@ -8,16 +8,16 @@ public class ImportDataApplication {
         /*
         * Simulate BUS data file
         * */
-//        int total=100000;
-        int total= 3;
+        int total=100000;
+//        int total= 3;
 
-        Function simulateData=new SimulateData();
+        Function<Integer, Object> simulateData=new SimulateData();
         simulateData.apply(total);
 
         /*
          * Import BUS data to DataCenter
          * */
-        Function importData=new ImportData();
+        Function<String, String> importData=new ImportData();
         importData.apply("data/import/import.txt");
     }
 }
